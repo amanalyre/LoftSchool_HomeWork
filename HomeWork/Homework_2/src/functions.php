@@ -71,13 +71,13 @@ function task2_2($sign,  ...$args)
 
     switch($sign) {
         case "+":
-            return array_sum($args);
+            $result = array_sum($args);
             break;
         case "-":
-            return $args[0]*2 - array_sum($args);
+            $result = $args[0]*2 - array_sum($args);
             break;
         case "*":
-            return array_product($args);
+            $result = array_product($args);
             break;
         case "/":
             break;
@@ -86,5 +86,35 @@ function task2_2($sign,  ...$args)
         case "**":
             break;
 
+    }
+    return $result;
+}
+
+function task3(int $r, int $c)
+{
+    if (is_int($r) && is_int($c)) {
+        $rows = $r; // количество строк, tr
+        $cols = $c; // количество столбцов, td
+
+        $table = '<table border="2">';
+
+        for ($tr = 1; $tr <= $rows; $tr++) {
+            $table .= '<tr>';
+            for ($td = 1; $td <= $cols; $td++) {
+                if ($tr % 2 === 0 && $td % 2 === 0) {
+                    $table .= '<td bgcolor="aqua"> (' . $tr * $td . ') </td>';
+                } elseif ($tr % 2 != 0 && $td % 2 != 0) {
+                    $table .= '<td bgcolor="#faebd7"> [' . $tr * $td . '] </td>';
+                } else {
+                    $table .= '<td>' . $tr * $td . '</td>';
+                }
+            }
+            $table .= '</tr>';
+        }
+
+        $table .= '</table>';
+        return $table;
+    } else {
+        return "Переданные $r и $c не являются целыми числами. Пожалуйста, попробуйте еще раз.";
     }
 }
