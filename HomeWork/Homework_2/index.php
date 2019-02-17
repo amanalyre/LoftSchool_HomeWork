@@ -24,6 +24,10 @@ echo '<strong>Task 5: </strong><p>';
 echo task5();
 echo '<p>';
 
-echo '<strong>Task 5: </strong><p>';
+echo '<strong>Task 6: </strong><p>';
 echo task6();
+echo '<p>';
+
+echo '<strong>Task 6_final: </strong><p>';
+echo task6_2();
 echo '<p>';

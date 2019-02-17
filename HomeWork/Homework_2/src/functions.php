@@ -48,7 +48,6 @@ function task2_1($sign, ...$args)
 
 function task2_2($sign, ...$args)
 {
-    $result = null;
     $clearArgs = [];
 
     if (in_array($sign, ['+', '-', '*', '/', '**', '%'])) {
@@ -58,9 +57,10 @@ function task2_2($sign, ...$args)
             }
         }
     } else {
-        return 'Вы ввели неправильный знак';
+        return 'Введенный знак не является арифметическим действием';
     }
 
+    var_dump($clearArgs);
     $expResult = null;
     switch ($sign) {
         case "+":
@@ -73,9 +73,12 @@ function task2_2($sign, ...$args)
             $expResult = array_product($clearArgs);
             break;
         case "/":
-//            foreach ($clearArgs as $arg) {
-//                if
-//            }
+            for ($p = $clearArgs[0], $i = 1, $n = $clearArgs[1]; // выполняется 1 раз
+                 $i <= count($clearArgs) - 1; // если false - выходим
+                 $n = $clearArgs[$i++]) { // вычисляется в конце каждой итерации
+                $p = $p / $n;
+            };
+            $expResult = $p;
             break;
         case "%":
             break;
@@ -83,7 +86,7 @@ function task2_2($sign, ...$args)
             break;
 
     }
-    return "$result = $expResult";
+    return $expResult;
 }
 
 /**
@@ -156,14 +159,18 @@ function task6()
         echo 'Ошибка при записи в файл.';
     }
     fclose($file);
-    return true;
+    return $file;
 }
 
-function task6_2($fileToRead)
+function task6_2()
 {
+    $fileToRead = task6();
+
     fopen($fileToRead, 'rt');
 
     echo readfile($fileToRead);
 
     fclose($fileToRead);
+
+    return true;
 }
