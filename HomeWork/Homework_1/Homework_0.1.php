@@ -1,5 +1,7 @@
 <?php
 
+const TESTCONSTANTA = 'asd';
+
 /**
  * @file
  * This function do something

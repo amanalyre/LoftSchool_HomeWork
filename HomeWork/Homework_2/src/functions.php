@@ -19,67 +19,71 @@ function task1(array $strings, $isUnited = false)
     return $text;
 }
 
-function task2_1($sign,  ...$args)
+function testTask1()
 {
-    $result = $args[0];
-    $numberOfArgs = count($args);
-    $count = 1;
+    echo "Hi!";
+    $array = ['Карл у Клары', 'Лара у Ары'];
+    $result = task1($array, true);
+    self::assertEquals('Карл у КларыЛара у Ары', $result);
 
-    while ($count <= $numberOfArgs) {
-        foreach ($args as $arg) {
-            if (is_float($arg) || is_int($arg)) { //Если число (но приводит строку к числу)
-                $result .= "$sign $arg";
-            }
-            $count++;
-        }
-    }
-
-    $result = preg_replace('/\s+/', '', $result);
-
-    $number = '(?:\d+(?:[,.]\d+)?|pi|π)';
-    $operators = '[+\/*\^%-]';
-    $regexp = '/^(('.$number.'|'.'\s*\((?1)+\)|\((?1)+\))(?:'.$operators.'(?2))?)+$/';
-
-    var_dump($result);
-    $finalResult = null;
-    if (preg_match($regexp, $result))
-    {
-        $finalResult = eval('$result = '.$result.';');
-    }
-    else
-    {
-        $result = false;
-    }
-var_dump($result);
-    return $result .+ $finalResult;
 }
 
-function task2_2($sign,  ...$args)
+/**
+ * Принимает на вход знак и набор параметров, составляет и вычисляет выражение
+ * TODO не проверяет деление на 0
+ * @param $sign
+ * @param mixed ...$args
+ * @return string
+ */
+function task2_1($sign, ...$args)
 {
-    $result = $args[0];
-    $numberOfArgs = count($args);
-    $count = 1;
+    $result = null;
+    $clearArgs = [];
 
-    while ($count <= $numberOfArgs) {
+    if (in_array($sign, ['+', '-', '*', '/', '**', '%'])) {
         foreach ($args as $arg) {
-            if (is_float($arg) || is_int($arg)) { //Если число (но приводит строку к числу)
-                $result .= "$sign $arg";
+            if (is_float($arg) || is_int($arg)) {
+                array_push($clearArgs, $arg);
             }
-            $count++;
         }
+        $result = implode($sign, $clearArgs);
+    } else {
+        return 'Вы ввели неправильный знак';
     }
 
-    switch($sign) {
+    return $result . ' = ' . eval("return $result;");
+}
+
+function task2_2($sign, ...$args)
+{
+    $result = null;
+    $clearArgs = [];
+
+    if (in_array($sign, ['+', '-', '*', '/', '**', '%'])) {
+        foreach ($args as $arg) {
+            if (is_float($arg) || is_int($arg)) {
+                array_push($clearArgs, $arg);
+            }
+        }
+    } else {
+        return 'Вы ввели неправильный знак';
+    }
+
+    $expResult = null;
+    switch ($sign) {
         case "+":
-            $result = array_sum($args);
+            $expResult = array_sum($clearArgs);
             break;
         case "-":
-            $result = $args[0]*2 - array_sum($args);
+            $expResult = $args[0] * 2 - array_sum($clearArgs);
             break;
         case "*":
-            $result = array_product($args);
+            $expResult = array_product($clearArgs);
             break;
         case "/":
+//            foreach ($clearArgs as $arg) {
+//                if
+//            }
             break;
         case "%":
             break;
@@ -87,9 +91,22 @@ function task2_2($sign,  ...$args)
             break;
 
     }
-    return $result;
+    return "$result = $expResult";
 }
 
+
+function testTask4()
+{
+    assertEquals(
+            '2/6 = 0.33333333333333',
+            task2_1('/', 2, 'dsfsdff', 6));
+}
+
+/**
+ * @param int $r количество строк, tr
+ * @param int $c количество столбцов, td
+ * @return string
+ */
 function task3(int $r, int $c)
 {
     if (is_int($r) && is_int($c)) {
@@ -117,4 +134,52 @@ function task3(int $r, int $c)
     } else {
         return "Переданные $r и $c не являются целыми числами. Пожалуйста, попробуйте еще раз.";
     }
+}
+
+/**
+ * Возвращает текущую дату и заданную дату
+ */
+function task4()
+{
+    echo date('d.m.Y H:i');
+    echo '<p>';
+    echo strtotime('24.02.2016 00:00:00');
+
+    return true;
+}
+
+/**
+ * Заменяем/удаляем части из текстов
+ */
+function task5()
+{
+    echo str_replace('К', '', 'Карл у Клары украл Кораллы');
+    echo '<p>';
+    echo str_replace('Две', 'Три', 'Две бутылки лимонада');
+
+    return true;
+}
+
+function task6()
+{
+    $text = 'Hello again!';
+
+    $file = fopen("test.txt", 'w');
+    $write = fwrite($file, $text);
+    if ($write) {
+        echo 'Данные в файл успешно занесены.';
+    } else {
+        echo 'Ошибка при записи в файл.';
+    }
+    fclose($file);
+    return true;
+}
+
+function task6_2($fileToRead)
+{
+    fopen($fileToRead, 'rt');
+
+    echo readfile($fileToRead);
+
+    fclose($fileToRead);
 }
