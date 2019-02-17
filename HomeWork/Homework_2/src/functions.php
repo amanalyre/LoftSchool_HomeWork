@@ -19,14 +19,6 @@ function task1(array $strings, $isUnited = false)
     return $text;
 }
 
-function testTask1()
-{
-    echo "Hi!";
-    $array = ['Карл у Клары', 'Лара у Ары'];
-    $result = task1($array, true);
-    self::assertEquals('Карл у КларыЛара у Ары', $result);
-
-}
 
 /**
  * Принимает на вход знак и набор параметров, составляет и вычисляет выражение
@@ -92,14 +84,6 @@ function task2_2($sign, ...$args)
 
     }
     return "$result = $expResult";
-}
-
-
-function testTask4()
-{
-    assertEquals(
-            '2/6 = 0.33333333333333',
-            task2_1('/', 2, 'dsfsdff', 6));
 }
 
 /**
