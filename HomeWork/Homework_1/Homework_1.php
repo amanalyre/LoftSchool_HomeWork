@@ -112,25 +112,31 @@ echo '<p>';
  * (заполните данными)
  * 4. Объедините три массива в один многомерный массив
  * 5. Выведите значения всех трех массивов*/
-$bmw = ['model' => 'X5',
+$bmw = [
+        'model' => 'X5',
         'speed' => 120,
         'doors' => 5,
-        'year'  => 2015];
+        'year' => 2015
+];
 
-$toyota = ['model' => 'Celica',
-    'speed' => 110,
-    'doors' => 3,
-    'year'  => 2009];
+$toyota = [
+        'model' => 'Celica',
+        'speed' => 110,
+        'doors' => 3,
+        'year' => 2009
+];
 
-$opel = ['model' => 'Corsa',
-    'speed' => 100,
-    'doors' => 5,
-    'year'  => 2017];
+$opel = [
+        'model' => 'Corsa',
+        'speed' => 100,
+        'doors' => 5,
+        'year' => 2017
+];
 
 
 $cars = array_merge_recursive(array('bmw' => $bmw), array('toyota' => $toyota), array('opel' => $opel));
 
-foreach($cars as $car => $data) {
+foreach ($cars as $car => $data) {
     echo "CAR $car \n";
     echo "$data[model] $data[speed] $data[doors] $data[year] \n";
     echo "\n";
@@ -153,15 +159,15 @@ $cols = 10; // количество столбцов, td
 
 $table = '<table border="2">';
 
-for ($tr = 1; $tr <= $rows; $tr++){
+for ($tr = 1; $tr <= $rows; $tr++) {
     $table .= '<tr>';
-    for ($td = 1; $td <= $cols; $td++){
-        if ($tr % 2 === 0 && $td % 2 === 0){
-            $table .= '<td bgcolor="aqua"> ('. $tr * $td . ') </td>';
+    for ($td = 1; $td <= $cols; $td++) {
+        if ($tr % 2 === 0 && $td % 2 === 0) {
+            $table .= '<td bgcolor="aqua"> (' . $tr * $td . ') </td>';
         } elseif ($tr % 2 != 0 && $td % 2 != 0) {
-            $table .= '<td bgcolor="#faebd7"> ['. $tr * $td . '] </td>';
+            $table .= '<td bgcolor="#faebd7"> [' . $tr * $td . '] </td>';
         } else {
-            $table .= '<td>'. $tr * $td . '</td>';
+            $table .= '<td>' . $tr * $td . '</td>';
         }
     }
     $table .= '</tr>';
