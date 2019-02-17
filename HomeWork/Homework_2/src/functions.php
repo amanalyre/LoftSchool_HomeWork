@@ -60,7 +60,6 @@ function task2_2($sign, ...$args)
         return 'Введенный знак не является арифметическим действием';
     }
 
-    var_dump($clearArgs);
     $expResult = null;
     switch ($sign) {
         case "+":
@@ -151,26 +150,22 @@ function task6()
 {
     $text = 'Hello again!';
 
-    $file = fopen("test.txt", 'w');
-    $write = fwrite($file, $text);
+    $file = 'test.txt';
+    $write = file_put_contents($file, $text);
     if ($write) {
-        echo 'Данные в файл успешно занесены.';
+        true;
     } else {
         echo 'Ошибка при записи в файл.';
     }
-    fclose($file);
+
     return $file;
 }
 
 function task6_2()
 {
     $fileToRead = task6();
+    $data = file_get_contents($fileToRead);
 
-    fopen($fileToRead, 'rt');
-
-    echo readfile($fileToRead);
-
-    fclose($fileToRead);
-
+    echo $data;
     return true;
 }
