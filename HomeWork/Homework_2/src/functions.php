@@ -19,14 +19,6 @@ function task1(array $strings, $isUnited = false)
     return $text;
 }
 
-function testTask1()
-{
-    echo "Hi!";
-    $array = ['Карл у Клары', 'Лара у Ары'];
-    $result = task1($array, true);
-    self::assertEquals('Карл у КларыЛара у Ары', $result);
-
-}
 
 /**
  * Принимает на вход знак и набор параметров, составляет и вычисляет выражение
@@ -56,7 +48,6 @@ function task2_1($sign, ...$args)
 
 function task2_2($sign, ...$args)
 {
-    $result = null;
     $clearArgs = [];
 
     if (in_array($sign, ['+', '-', '*', '/', '**', '%'])) {
@@ -66,7 +57,7 @@ function task2_2($sign, ...$args)
             }
         }
     } else {
-        return 'Вы ввели неправильный знак';
+        return 'Введенный знак не является арифметическим действием';
     }
 
     $expResult = null;
@@ -81,9 +72,12 @@ function task2_2($sign, ...$args)
             $expResult = array_product($clearArgs);
             break;
         case "/":
-//            foreach ($clearArgs as $arg) {
-//                if
-//            }
+            for ($p = $clearArgs[0], $i = 1, $n = $clearArgs[1]; // выполняется 1 раз
+                 $i <= count($clearArgs) - 1; // если false - выходим
+                 $n = $clearArgs[$i++]) { // вычисляется в конце каждой итерации
+                $p = $p / $n;
+            };
+            $expResult = $p;
             break;
         case "%":
             break;
@@ -91,15 +85,7 @@ function task2_2($sign, ...$args)
             break;
 
     }
-    return "$result = $expResult";
-}
-
-
-function testTask4()
-{
-    assertEquals(
-            '2/6 = 0.33333333333333',
-            task2_1('/', 2, 'dsfsdff', 6));
+    return $expResult;
 }
 
 /**
@@ -164,22 +150,22 @@ function task6()
 {
     $text = 'Hello again!';
 
-    $file = fopen("test.txt", 'w');
-    $write = fwrite($file, $text);
+    $file = 'test.txt';
+    $write = file_put_contents($file, $text);
     if ($write) {
-        echo 'Данные в файл успешно занесены.';
+        true;
     } else {
         echo 'Ошибка при записи в файл.';
     }
-    fclose($file);
-    return true;
+
+    return $file;
 }
 
-function task6_2($fileToRead)
+function task6_2()
 {
-    fopen($fileToRead, 'rt');
+    $fileToRead = task6();
+    $data = file_get_contents($fileToRead);
 
-    echo readfile($fileToRead);
-
-    fclose($fileToRead);
+    echo $data;
+    return true;
 }
