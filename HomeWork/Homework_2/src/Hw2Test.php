@@ -12,7 +12,7 @@ class Hw2Test extends TestCase
     /**
      * Unit tests for task1()
      */
-    function testTask1_1()
+    function testTask1_1UniteStrings()
     {
         $array = ['Карл у Клары', 'Лара у Ары'];
         $result = task1($array, true);
@@ -20,18 +20,21 @@ class Hw2Test extends TestCase
 
     }
 
-    function testTask1_2()
+    function testTask1_2WithParagraphs()
     {
         $array = ['Карл у Клары', 'Лара у Ары'];
         $result = task1($array);
-        self::assertEquals('Карл у Клары <p>Лара у Ары <p>', $result, 'Одинаковы');
+        self::assertEquals(
+                '<p> Карл у Клары </p><p> Лара у Ары </p>',
+                $result,
+                'Строка в ответе отличается от ожидмемого');
 
     }
 
     /**
      * Unit tests for task2()
      */
-    function testTask2_1_1()
+    function testTask2_1_1Sum()
     {
         $result = task2_1('+', 22222, 12345, 9999999, '\+3*#$');
         self::assertEquals(
@@ -41,7 +44,7 @@ class Hw2Test extends TestCase
         );
     }
 
-    function testTask2_1_2()
+    function testTask2_1_2Division()
     {
         $result = task2_1('/', 2, 'dsfsdff', 6);
         self::assertEquals(
@@ -50,7 +53,7 @@ class Hw2Test extends TestCase
         );
     }
 
-    function testTask2_2_1()
+    function testTask2_2_1SumWithStrings()
     {
         $result = task2_2('+', 2, 'dsfsdff', 6);
         self::assertEquals(
@@ -59,7 +62,7 @@ class Hw2Test extends TestCase
         );
     }
 
-    function testTask2_2_4()
+    function testTask2_2_4DivisionWithStrings()
     {
         $result = task2_2('/', 2, 'dsfsdff', 6);
         self::assertEquals(
