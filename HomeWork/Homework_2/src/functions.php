@@ -12,7 +12,7 @@ function task1(array $strings, $isUnited = false)
         $text = implode($strings);
     } else {
         foreach ($strings as $string) {
-            $text .= "$string <p>";
+            $text .= "<p> $string </p>";
         }
     }
 
@@ -23,6 +23,7 @@ function task1(array $strings, $isUnited = false)
 /**
  * Принимает на вход знак и набор параметров, составляет и вычисляет выражение
  * TODO не проверяет деление на 0
+ * TODO array_shift() сможет очистить массив от знака и помось с проверкой деления на 0.
  * @param $sign
  * @param mixed ...$args
  * @return string
@@ -80,8 +81,20 @@ function task2_2($sign, ...$args)
             $expResult = $p;
             break;
         case "%":
+            for ($p = $clearArgs[0], $i = 1, $n = $clearArgs[1]; // выполняется 1 раз
+                 $i <= count($clearArgs) - 1; // если false - выходим
+                 $n = $clearArgs[$i++]) { // вычисляется в конце каждой итерации
+                $p = $p % $n;
+            };
+            $expResult = $p;
             break;
         case "**":
+            for ($p = $clearArgs[0], $i = 1, $n = $clearArgs[1]; // выполняется 1 раз
+                 $i <= count($clearArgs) - 1; // если false - выходим
+                 $n = $clearArgs[$i++]) { // вычисляется в конце каждой итерации
+                $p = $p ** $n;
+            };
+            $expResult = $p;
             break;
 
     }
@@ -128,10 +141,10 @@ function task3(int $r, int $c)
 function task4()
 {
     echo date('d.m.Y H:i');
-    echo '<p>';
+    echo '</br>';
     echo strtotime('24.02.2016 00:00:00');
 
-    return true;
+    //return true;
 }
 
 /**
@@ -140,10 +153,10 @@ function task4()
 function task5()
 {
     echo str_replace('К', '', 'Карл у Клары украл Кораллы');
-    echo '<p>';
+    echo '</br>';
     echo str_replace('Две', 'Три', 'Две бутылки лимонада');
 
-    return true;
+    //return true;
 }
 
 function task6()
@@ -151,12 +164,14 @@ function task6()
     $text = 'Hello again!';
 
     $file = 'test.txt';
+    $newFile = fopen($file, 'w');
     $write = file_put_contents($file, $text);
     if ($write) {
         true;
     } else {
         echo 'Ошибка при записи в файл.';
     }
+    fclose($newFile);
 
     return $file;
 }
