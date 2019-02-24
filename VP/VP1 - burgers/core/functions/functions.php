@@ -15,6 +15,10 @@ function getConfig()
     return ($config);
 }
 
+/**
+ * Получаем соединение
+ * @return PDO
+ */
 function connection()
 {
     try {
@@ -30,6 +34,11 @@ function connection()
     }
 }
 
+/**
+ * Проверяем входящие данные
+ * @param array $data
+ * @return array
+ */
 function checkData(array &$data) // Обратить внимание, тут могут быть неожиданности из-за &-ссылки
 {
     foreach ($data as $param) {
@@ -40,6 +49,11 @@ function checkData(array &$data) // Обратить внимание, тут м
     return $data;
 }
 
+/**
+ * Добавляем нового юзера
+ * @param $data
+ * @return string
+ */
 function addNewUser($data)
 {
     $sqlUser = "INSERT INTO users (us_name, us_email, us_phone) VALUES (:name, :email, :phone);";
@@ -53,6 +67,11 @@ function addNewUser($data)
     return $pdo->lastInsertId();
 }
 
+/**
+ * Ищем существующего юзера по почте
+ * @param $email
+ * @return mixed
+ */
 function getUser($email)
 {
     $qSelect = "SELECT us_name, us_email, us_phone, id FROM users WHERE us_email = :email;";
@@ -63,6 +82,11 @@ function getUser($email)
     return $prepStmt->fetch();
 }
 
+/**
+ * Проверяем, существует ли юзер. Если нет - регистрируем. Возвращает user_id
+ * @param $data
+ * @return mixed|string
+ */
 function registration($data) //ожидает на вход типа $data
 {
     $user = getUser($data['email']);
@@ -77,7 +101,11 @@ function registration($data) //ожидает на вход типа $data
 
 }
 
-
+/**
+ * Создаем заказ. Дергает проверку существования юзера и "отправку" письма.
+ * @param $data
+ * @return bool
+ */
 function orderBurgers($data)
 {
     $userId = registration($data);
@@ -98,10 +126,14 @@ function orderBurgers($data)
     sendResponse($orderId, $data, $userId);
 
     return true;
-
-
 }
 
+/**
+ * Отправляем письмо с заказом.
+ * @param $id
+ * @param $data
+ * @param $userId
+ */
 function sendResponse($id, $data, $userId)
 {
     $fileName = "(mail)Order-" . $id . ".txt";
