@@ -1,5 +1,5 @@
 <?php
-
+//ТУТ ФИГНЯ ToDo поправить
 require_once (__DIR__ . './functions/functions.php');
 require_once(__DIR__ . './config/configure.php');
 require_once(__DIR__ . './config/connection.php');

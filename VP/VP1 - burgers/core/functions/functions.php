@@ -30,6 +30,16 @@ function connection()
     }
 }
 
+function checkData(array &$data) // Обратить внимание, тут могут быть неожиданности из-за &-ссылки
+{
+    foreach ($data as $param) {
+        $param = trim($param);
+        htmlspecialchars($param);
+    }
+
+    return $data;
+}
+
 function addNewUser($data)
 {
     $sqlUser = "INSERT INTO users (us_name, us_email, us_phone) VALUES (:name, :email, :phone);";
@@ -97,17 +107,17 @@ function sendResponse($id, $data, $userId)
     $fileName = "(mail)Order-" . $id . ".txt";
     $content = "Заказ # $id" . PHP_EOL .
             "Ваш заказ будет доставлен по адресу:" . PHP_EOL .
-            "Улица " . $data['street'] . ", " .
+            "улица " . $data['street'] . ", " .
             "дом " . $data['house'] . ", " .
             "корпус " . $data['building'] . ", " .
             "квартира " . $data['apartment'] . ", " .
             "этаж " . $data['floor'] . "." . PHP_EOL .
-            "Бургер DarkBeefBurger 500р, 1шт" . PHP_EOL . PHP_EOL;
+            "Состав заказа: Бургер DarkBeefBurger, 1шт, цена 500р," . PHP_EOL . PHP_EOL;
     $orderNumber = "SELECT COUNT(*) as 'count' FROM orders WHERE user_id = $userId;";
     $pdo = connection();
     $stmt = $pdo->prepare($orderNumber)
                 ->execute();
-    $pdo->setFetchMode(PDO::FETCH_ASSOC);
+    $pdo->setFetchMode(PDO::FETCH_ASSOC); // ToDo WTF?
     $arr = $stmt->fetch();
     if ($arr["count"] === '1') {
         $content = $content . "Спасибо - это ваш первый заказ";

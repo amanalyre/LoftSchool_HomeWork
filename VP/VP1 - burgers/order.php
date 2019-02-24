@@ -9,5 +9,10 @@ if ($_POST) {
     $data = $_POST['data'];
 }
 
+$clearData = checkData($data);
 
-$order = orderBurgers($data);
+$order = orderBurgers($clearData);
+
+if ($order) {
+    echo "Ваш заказ успешно создан";
+}
