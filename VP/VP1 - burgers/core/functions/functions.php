@@ -104,10 +104,10 @@ function sendResponse($id, $data, $userId)
             "этаж " . $data['floor'] . "." . PHP_EOL .
             "Бургер DarkBeefBurger 500р, 1шт" . PHP_EOL . PHP_EOL;
     $orderNumber = "SELECT COUNT(*) as 'count' FROM orders WHERE user_id = $userId;";
-    $stmt = connection()
-            ->prepare($orderNumber)
-            ->execute();
-    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $pdo = connection();
+    $stmt = $pdo->prepare($orderNumber)
+                ->execute();
+    $pdo->setFetchMode(PDO::FETCH_ASSOC);
     $arr = $stmt->fetch();
     if ($arr["count"] === '1') {
         $content = $content . "Спасибо - это ваш первый заказ";
