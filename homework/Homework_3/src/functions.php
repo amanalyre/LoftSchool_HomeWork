@@ -122,7 +122,7 @@ function task2()
     $second = json_decode($secondJson, true);
     $diff = array_diff_assoc($second, $first);
     $jsonDiff = json_encode($diff);
-    if (count($diff)) { //TODO допилить правильную проверку []
+    if (count($diff)) {
         echo "</br>Отличающиеся элементы: ";
     } else {
         echo 'Нет отличий: ';
