@@ -1,10 +1,12 @@
 <?php
 
+namespace homework;
+
 use PHPUnit\Framework\TestCase;
 
 require('functions.php');
 
-class Hw3Tests extends TestCase
+class Hw3Test extends TestCase
 {
 
     /**
