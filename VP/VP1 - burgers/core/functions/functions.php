@@ -19,7 +19,7 @@ function getConfig()
  * Получаем соединение
  * @return PDO
  */
-function connection()
+function connection() :\PDO
 {
     try {
         $config = getConfig();
@@ -47,7 +47,7 @@ function formRequiredFields(array $data)
     }
     $expectedValues = ['name', 'phone', 'email', 'street', 'house', 'building', 'apartment', 'floor', 'description'];
     $errors = [];
-
+var_dump($data);
     foreach ($expectedValues as $field) {
         if (empty($data[$field])) {
             $errors[$field] = 'Поле не заполнено';
