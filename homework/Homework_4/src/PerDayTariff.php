@@ -11,6 +11,7 @@ class PerDayTariff extends AbstractTariffClass
 //часа 29 минут = 1 сутки. 23 часа 59 минут = 1 сутки. 24 часа 31 минута = 2 суток.
     use withGPSTrait;
     use AddDriverTrait;
+    use RoundTimeTrait;
 
     protected $pricePerKM = 1;
 

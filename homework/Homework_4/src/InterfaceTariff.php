@@ -5,5 +5,13 @@ namespace Homework_4;
 
 interface InterfaceTariff
 {
-    public function calcRidePrice($driverAge, $km, $minutes, $pricePerKM, $pricePerMinute);
+    public function calcRidePrice(
+            $youthCoefficient,
+            $km,
+            $minutes,
+            $pricePerKM,
+            $pricePerMinute,
+            $gpsCost,
+            $addDriver
+    );
 }

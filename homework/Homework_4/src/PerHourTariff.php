@@ -7,6 +7,7 @@ class PerHourTariff extends AbstractTariffClass
 {
     use WithGPSTrait;
     use AddDriverTrait;
+    use RoundTimeTrait;
 
     protected $pricePerKM = 0;
 

@@ -2,6 +2,7 @@
 
 namespace Homework_4;
 
+include "InterfaceTariff.php";
 
 abstract class AbstractTariffClass implements InterfaceTariff
 {
@@ -46,25 +47,42 @@ abstract class AbstractTariffClass implements InterfaceTariff
     function isYoung($driverAge)
     {
         if ($driverAge > 18 && $driverAge < 21) {
-            return $coeff = 1.1; // TODO
+            return $youthCoefficient = 1.1; // TODO
         } else {
-            return $coeff = 1;
+            return $youthCoefficient = 1;
         }
     }
 
-    function calcRentTime()
+    /**
+     * Принимает человекочитаемое время (чч:мм:сс) и возвращает его для расчетов в секундах
+     * @param string $time
+     * @return int
+     */
+    public function calcRentTime(string $time) :int
     {
+        //$time = "2:50"; example
+        $hours = null;
+        $minutes = null;
+        $seconds = null;
 
+        sscanf($time, "%d:%d:%d", $hours, $minutes, $seconds);
+
+        // Всегда округляем существующие секунды в бОльшую сторону, т.к. тарифы поминутные.
+        if ($seconds > 0) {
+            $seconds = 60;
+        }
+
+        $secondsSpent = isset($hours) ? $hours * 3600 + $minutes * 60 + $seconds : $minutes * 60 + $seconds;
+
+        return $secondsSpent;
     }
 
-    function roundRentTime()
+    public function calcRidePrice($youthCoefficient, $km, $minutes, $pricePerKM, $pricePerMinute, $gpsCost, $addDriver)  // сюда приходит стоимость допов, а не их наличие
     {
-        // 1. No round
-        // 2.
-    }
+        $driveCost = null;
 
-    public function calcRidePrice($driverAge, $km, $minutes, $pricePerKM, $pricePerMinute, $withGPS = false, $addDriver = false)
-    {
+        $driveCost = (($km * $pricePerKM) + ($minutes * $pricePerMinute) + $gpsCost + $addDriver) * $youthCoefficient;
 
+        return $driveCost;
     }
 }
