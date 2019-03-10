@@ -12,8 +12,12 @@ require_once 'src/PerDayTariff.php';
 require_once 'src/PerHourTariff.php';
 require_once 'src/StudentTariff.php';
 
+//try {
+//    TariffFactory::create('Student')->calcRidePrice();
+//} catch (\Exception $e)  {
+//    echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+//}
 
-$tar = new BaseTariff();
 
 try {
     TariffFactory::create('Base')->calcRidePrice();
