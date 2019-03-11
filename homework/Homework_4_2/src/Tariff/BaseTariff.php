@@ -3,6 +3,7 @@
 namespace Homework_4_2;
 
 require_once 'WithGPSTrait.php';
+require_once 'TariffFactory.php';
 
 class BaseTariff extends AbstractTariff
 {

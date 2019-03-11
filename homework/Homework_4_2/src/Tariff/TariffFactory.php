@@ -17,7 +17,7 @@ class TariffFactory
 {
     public static function create($type)
     {
-        $name = $type . 'Tariff';
+        $name = $type . 'Tariff.php';
         $path = $_SERVER['DOCUMENT_ROOT'] . '/homework/Homework_4/src/' . $name;
         require $path;
         if (!class_exists($name)) {
