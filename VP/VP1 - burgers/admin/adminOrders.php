@@ -21,7 +21,6 @@ try {
 }
 $orderData = $prepStmt->fetchAll(PDO::FETCH_ASSOC);
 
-//var_dump($orderData);
 try {
     echo $twig->render('orderAdminView.twig', ['orderData' => $orderData]);
 } catch (\Twig\Error\LoaderError $e) {

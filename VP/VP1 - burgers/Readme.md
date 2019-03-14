@@ -1,1 +1,1 @@
-**Админка** core/admin.php
+**Админка** admin/admin.php
