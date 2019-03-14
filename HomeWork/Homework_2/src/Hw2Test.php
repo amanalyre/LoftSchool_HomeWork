@@ -1,6 +1,6 @@
 <?php
 
-namespace homework;
+namespace homework\Homework_2;
 
 use PHPUnit\Framework\TestCase;
 
