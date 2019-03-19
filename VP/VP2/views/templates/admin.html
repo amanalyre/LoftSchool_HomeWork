@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<h3>Панель администрирования</h3>
+<a href="/admin/allUsers">Все пользователи</a> </br>
+<a href="/admin/allUserFiles?userId=1">Файлы пользователя</a>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

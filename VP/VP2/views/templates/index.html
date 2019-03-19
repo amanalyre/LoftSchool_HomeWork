@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <header>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Добро пожаловать!</h3>
+            </div>
+        </div>
+    </header>
+    <div class="row">
+        <form action="/user/login" method="post" id="login-form">
+            <div class="col-12 mx-auto">
+                <div class="input-group row">
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="login">Почта:</label>
+                            <input class="form-control" type="email" id="login" name="login">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="password">Пароль:</label>
+                            <input class="form-control" type="password" id="password" name="password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a id="registration" class="btn btn-info" href="/registration">Зарегистрироваться</a>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-info" type="submit">Войти</button>
+                </div>
+            </div>
+        </form>
+        {% if message|length %}
+        <div><p>{{ message }}</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
