@@ -2,11 +2,17 @@
 
 namespace controllers;
 
-class AdminRegistrationController extends Controller
+use models\User\Users;
+use models\User\UserException;
+
+class AdminEditController extends Controller
 {
+    protected $email;
+
     public function index()
     {
-        $this->renderView('adminRegistration');
+        $user = (new Users)->getUserByEmail($email);
+        $this->renderView('adminEdit', ['user' => $user]);
         $this->status = true;
     }
 }

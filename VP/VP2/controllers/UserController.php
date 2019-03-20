@@ -64,7 +64,7 @@ class UserController extends Controller
         } catch (UserException $exception) {
             $message = 'Не удалось зарегистрироваться из-за ошибки: ' . $exception->getMessage();
         } finally {
-            $this->renderView('registration', [
+            $this->renderView('adminRegistration', [
                 'message' => !empty($message) ? $message : ''
             ]);
         }

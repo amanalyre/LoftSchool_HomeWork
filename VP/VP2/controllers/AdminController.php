@@ -10,7 +10,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        if($_SESSION['auth'] == 1 && $_SESSION['isAdmin']){
+        if((new Users)->isAuthorized()){
             $this->renderView('admin');
         } else {
             $this->renderView('index');
@@ -36,5 +36,44 @@ class AdminController extends Controller
             //var_dump($files);
             $this->renderView('adminFiles', ['files' => $files]);
         }
+    }
+
+    public function createUser()
+    {
+        if (empty($this->userData['email'] || $this->userData['password'])) {
+            return $this->status;
+        }
+        if (!empty($_FILES['avatar'])) {
+            $this->userData['avatar'] = $_FILES['avatar'];
+        }
+        try {
+            $user = Users::create($this->userData);
+            $message = 'Регистрация прошла успешно. Можете ';
+        } catch (UserException $exception) {
+            $message = 'Не удалось зарегистрироваться из-за ошибки: ' . $exception->getMessage();
+        } finally {
+            $this->renderView('adminRegistration', [
+                    'message' => !empty($message) ? $message : ''
+            ]);
+        }
+
+    }
+
+    public function editUser()
+    {
+        $params = $this->userData;
+        if (empty($this->userData['email'] || $this->userData['password'])) {
+            return $this->status;
+        }
+
+        $values = ['name' => $this->userData['name'], 'age' => $this->userData['age'], 'description' => $this->userData['description']];
+        $user = new Users;
+        $user->getUserByEmail($this->userData['email']);
+        $user->update($values, $params);
+
+        $this->renderView('adminEdit', [
+                'message' => !empty($message) ? $message : ''
+        ]);
+
     }
 }

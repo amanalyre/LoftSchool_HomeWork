@@ -2,11 +2,11 @@
 
 namespace controllers;
 
-class RegistrationController extends Controller
+class AdminRegistrationController extends Controller
 {
     public function index()
     {
-        $this->renderView('registration');
+        $this->renderView('adminRegistration');
         $this->status = true;
     }
 }
