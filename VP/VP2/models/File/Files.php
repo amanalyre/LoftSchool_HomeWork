@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mfgoreva
- * Date: 17.03.2019
- * Time: 18:03
- */
 
 namespace models\File;
 
@@ -14,12 +8,14 @@ use helpers\UploadFileHelper;
 class Files extends Model
 {
     protected $fillable = ['name', 'user_id'];
+    protected $guarded = ['created_at', 'updated_at'];
 
 //    public function __construct($fileData)
 //    {
 //        $this->name = $fileData['name'];
 //        $this->user_id = $fileData['userId'];
 //    }
+
 
     /** Функция загрузки файлов на сервер, сохраняет информацию о файле в БД после загрузки
      *
@@ -29,11 +25,9 @@ class Files extends Model
      */
     public static function upload(int $userId, array $file)
     {
-        if (empty($userId)) {
-            $userId = $_SESSION['user_id'];
-        }
         if (UploadFileHelper::upload($file)) {
             $file = new Files(['name' => $file['name'], 'userId' => $userId]);
+            $file->attributes['user_id'] = $userId;
             $file->save();
         } else {
             throw new FileException('Не удалось записать файл.');

@@ -74,4 +74,15 @@ class Users extends Model
     {
         return $_SESSION['auth'] == 1 && $_SESSION['isAdmin'];
     }
+
+    public function getUserByEmail($email)
+    {
+        return $this->where('email', $email)->first()->toArray();
+    }
+
+    public function update($user, $params)
+    {
+
+    }
+
 }
