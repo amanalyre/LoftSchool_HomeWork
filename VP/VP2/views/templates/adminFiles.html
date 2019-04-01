@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div>
+    {% if files[0] is  defined %}
+        <table>
+            {% for key,value in files %}
+            <tr>
+                <td><b>ID пользователя</b></td>
+                <td><b>ID файла</b></td>
+                <td><b>Файл</b></td>
+            </tr>
+            <tr>
+                <td>{{ files[key].user_id }}</td>
+                <td style="text-align: center;">{{ files[key].id }}</td>
+                <td style="text-align: center; width: 300px;"><img src="/upload/{{ files[key].name }}" alt="avatar"></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No files found</p>
+    {% endif %}
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

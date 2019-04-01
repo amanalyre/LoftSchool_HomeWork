@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<h3>Профиль пользователя</h3>
+{% if user|length > 0 %}
+<div class="col-12">
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.age }}</p>
+    <p>{{ user.description }}</p>
+    <p>{{ user.avatar }}</p>
+    <img src="{{ user.avatar }}">
+</div>
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

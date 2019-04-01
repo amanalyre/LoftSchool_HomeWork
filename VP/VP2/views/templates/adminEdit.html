@@ -1,0 +1,72 @@
+{% extends "/main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <header>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Регистрация</h3>
+                <a href="/admin">В админку</a>
+                <p></p>
+            </div>
+        </div>
+    </header>
+    <div class="row">
+        <form enctype="multipart/form-data" action="/admin/editUser" method="post" id="registration-form">
+            <div class="col-12 mx-auto">
+                <div class="input-group row">
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="email">Email:</label>
+                            <input required class="form-control" type="text" id="email" name="user[email]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="email">Введите пароль:</label>
+                            <input required class="form-control" type="password" id="password" name="user[password]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="name">Имя:</label>
+                            <input class="form-control" type="text" id="name" name="user[name]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="name">Возраст:</label>
+                            <input required class="form-control" type="number" name="user[age]" id="age">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-12">
+                            <label for="name">Пара слов о юзере:</label>
+                            <input class="form-control" type="text" id="description" name="user[description]">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="avatar">Загрузите изображение (аватар): </label>
+                        <input type="file" accept="image/*" class="form-control-file" id="avatar" name="avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button id="adminEditUser" class="btn btn-info" type="submit">Создать</button>
+                </div>
+            </div>
+            {% if message|length != 0 %}
+            <div class="message">
+                {{ message }}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

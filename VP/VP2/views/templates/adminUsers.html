@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div>
+    <p><a href="/adminRegistration"><b>Создать нового пользователя</b></a></p>
+</div>
+<div>
+
+    <table>
+        {% for key,value in users %}
+        <tr>
+            <td style="text-align: center; width: 300px;"><img src="{{ users[key].avatar }}" alt="avatar"></td>
+            <td style="text-align: center;"><b>{{ users[key].name }}</b></td>
+            <td>Возраст: {{ users[key].age }}</td>
+            <td>{{ users[key].adult }}</td>
+            <td>{{ users[key].email }}</td>
+            <td>{{ users[key].description }}</td>
+            <td><a href="edit?id={{ var[key].id }}"><i>Изменить</i></a><br/></td>
+            <td><a href="delete?id={{ var[key].id }}"><i>Удалить</i></a></td>
+        </tr>
+        {% endfor %}
+    </table>}
+
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
