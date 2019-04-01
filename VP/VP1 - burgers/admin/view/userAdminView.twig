@@ -1,0 +1,28 @@
+<div class="container">
+    <h1 class="text-center"> Админ панель</h1>
+    <a href="./admin.php"><-Назад к выбору раздела</a>
+    <h2 class="text-center">Пользователи</h2>
+    <table class="table">
+        <thead>
+        <tr style="font-weight:bold; font-size: large">
+            <th style="border-bottom:2pt solid green;">id</th>
+            <th style="border-bottom:2pt solid green;">Имя</th>
+            <th style="border-bottom:2pt solid green;">email</th>
+            <th style="border-bottom:2pt solid green;">Телефон</th>
+            <th style="border-bottom:2pt solid green;">Дата регистрации</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in usersData %}
+        <tr>
+            <td style="border-bottom:1pt solid black;">{{ user['id'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ user['us_name'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ user['us_email'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ user['us_phone'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ user['create_date'] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ </div>

@@ -1,0 +1,35 @@
+<div class="container">
+    <h1 class="text-center"> Админ панель</h1>
+    <a href="./admin.php"><-Назад к выбору раздела</a>
+    <h2 class="text-center">Заказы</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th style="border-bottom:2pt solid green;">id заказа</th>
+            <th style="border-bottom:2pt solid green;">Улица</th>
+            <th style="border-bottom:2pt solid green;">Дом</th>
+            <th style="border-bottom:2pt solid green;">Строение</th>
+            <th style="border-bottom:2pt solid green;">Квартира</th>
+            <th style="border-bottom:2pt solid green;">Этаж</th>
+            <th style="border-bottom:2pt solid green;">Комментарий</th>
+            <th style="border-bottom:2pt solid green;">Email пользователя</th>
+            <th style="border-bottom:2pt solid green;">Имя пользователя</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orderData %}
+        <tr>
+            <td style="border-bottom:1pt solid black;">{{ order['id'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ order['street'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ order['house'] }}</td>
+            <td style="border-bottom:1pt solid black;">{{ order['building'] }}</td>
+            <td style="border-bottom:1pt solid black;"> {{ order['apartment'] }}</td>
+            <td style="border-bottom:1pt solid black;"> {{ order['floor'] }}</td>
+            <td style="border-bottom:1pt solid black;"> {{ order['description'] }}</td>
+            <td style="border-bottom:1pt solid black;"> {{ order['us_email'] }}</td>
+            <td style="border-bottom:1pt solid black;"> {{ order['us_name'] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

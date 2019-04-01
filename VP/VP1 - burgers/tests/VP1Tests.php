@@ -1,7 +1,5 @@
 <?php
 
-namespace VP;
-
 use PHPUnit\Framework\TestCase;
 
 require('./../core/functions/functions.php');

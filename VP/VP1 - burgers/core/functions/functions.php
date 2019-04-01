@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__ . './../config/configure.php');
+require_once (__DIR__ . './../../../../vendor/autoload.php');
 
 /**
  * Получаем настройки для коннекта к базе
@@ -40,14 +41,17 @@ function connection() :\PDO
     }
 }
 
+/**
+ * @param array $data
+ * @return array
+ */
 function formRequiredFields(array $data)
 {
-    if (!$data['callback']) { //Notice: Undefined index: callback
+    if (empty($data['callback'])) { //Notice: Undefined index: callback
         $data['callback'] = 0;
     }
     $expectedValues = ['name', 'phone', 'email', 'street', 'house', 'building', 'apartment', 'floor', 'description'];
     $errors = [];
-var_dump($data);
     foreach ($expectedValues as $field) {
         if (empty($data[$field])) {
             $errors[$field] = 'Поле не заполнено';
@@ -185,6 +189,7 @@ function sendResponse($id, $data, $userId)
     $stmt = $pdo->query($orderNumber);
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $arr = $stmt->fetch();
+    $mailName = 'Заказ аппетитных бургеров';
     $fileName = __DIR__ . './../../orders/' . "Mail_to_$userId-Order-" . $id . ".txt";
     $content = "Заказ # $id" . PHP_EOL .
             "Ваш заказ будет доставлен по адресу:" . PHP_EOL .
@@ -197,10 +202,12 @@ function sendResponse($id, $data, $userId)
     if ($arr["count"] === '1') {
         $content = $content . "Спасибо - это ваш первый заказ";
     } else {
-        $content = $content . "Спасибо! Это уже " . $arr["count"] . " заказ.";
+        $content = $content . "Спасибо! Это уже ваш " . $arr["count"] . "-й заказ.";
     }
 
-    if (file_put_contents($fileName, $content)) {
+    $mail = sendMail($mailName, $content, $data);
+
+    if ($mail && file_put_contents($fileName, $content)) {
         return $fileName;
     } else {
         return false;
@@ -216,6 +223,40 @@ function showMailInBrowser($mail, $lastOrderId)
     }
 }
 
+/**
+ * @param $mailName
+ * @param $content
+ * @param $data
+ * @return bool
+ */
+function sendMail($mailName, $content, $data)
+{
+    try {
+// Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.mail.ru', 465, 'ssl'))
+                ->setUsername('loftc@bk.ru')
+                ->setPassword('tfol123098');
+// Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+// Create a message
+        $message = (new Swift_Message($mailName))
+                ->setFrom(['loftc@bk.ru' => 'loftc@bk.ru'])
+                ->setTo([$data['email']])
+                ->setBody($content);
+// Send the message
+        $result = $mailer->send($message);
+        if ($result > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (Exception $e) {
+        var_dump($e->getMessage());
+        echo '<pre>' . print_r($e->getTrace(), 1);
+    }
+
+}
+
 //function sendAjax()
 //{
 //    var userId = $('#user_id').val();
@@ -225,4 +266,12 @@ function showMailInBrowser($mail, $lastOrderId)
 //        console.log('data', data);
 //    }
 //}
+
+
+
+//, из composer.json
+
+//    "autoload": {
+//        "psr-4": {""}
+//    }
 
